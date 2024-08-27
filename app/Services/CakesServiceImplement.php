@@ -40,13 +40,10 @@ public function updateCake($id, array $data)
             }
         }
 
-        // Jika 'image' adalah instance dari UploadedFile, simpan file baru
-        // Jika tidak, berarti 'image' adalah path yang sudah ada
         if ($data['image'] instanceof \Illuminate\Http\UploadedFile) {
             $data['image'] = $data['image']->store('images', 'public');
         }
     } else {
-        // Tetapkan gambar lama jika tidak ada gambar baru
         $data['image'] = $cake->image;
     }
 
