@@ -28,18 +28,19 @@ class CakesController extends Controller
     }
 
     public function store(CakesRequest $request)
-    {
-        $validatedData = $request->validated();
+{
+    $validatedData = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $validatedData['image'] = $imagePath;
-        }
-
-        Cakes::create($validatedData);
-
-        return redirect()->route('cakes.index')->with('success', 'Cake added successfully!');
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images', 'public');
+        $validatedData['image'] = $imagePath;
     }
+
+    $this->cakesService->createCake($validatedData);
+
+    return redirect()->route('cakes.index')->with('success', 'Cake added successfully!');
+}
+
 
     public function edit($id)
     {

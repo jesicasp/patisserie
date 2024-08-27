@@ -25,29 +25,34 @@ class CakesServiceImplement implements CakesService{
 
     public function createCake(array $data)
     {
-    if (isset($data['image'])) {
-        $data['image'] = $data['image']->store('images', 'public');
-    }
-
     return $this->cakesRepository->create($data);
     }
 
-    public function updateCake($id, array $data)
-    {
-        $cake = $this->cakesRepository->find($id);
+public function updateCake($id, array $data)
+{
+    $cake = $this->cakesRepository->find($id);
 
-         if (isset($data['image']) && $data['image'] !== $cake->image) {
-            if ($cake->image) {
-                $oldImagePath = storage_path('app/public/' . $cake->image);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
+    if (isset($data['image']) && $data['image'] !== $cake->image) {
+        if ($cake->image) {
+            $oldImagePath = storage_path('app/public/' . $cake->image);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
         }
-    }
-    
 
-        return $this->cakesRepository->update($id, $data);
+        // Jika 'image' adalah instance dari UploadedFile, simpan file baru
+        // Jika tidak, berarti 'image' adalah path yang sudah ada
+        if ($data['image'] instanceof \Illuminate\Http\UploadedFile) {
+            $data['image'] = $data['image']->store('images', 'public');
+        }
+    } else {
+        // Tetapkan gambar lama jika tidak ada gambar baru
+        $data['image'] = $cake->image;
     }
+
+    return $this->cakesRepository->update($id, $data);
+}
+
 
     public function deleteCake($id)
     {
