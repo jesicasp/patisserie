@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Services;
+
 use App\Repositories\CakesRepository;
+use Illuminate\Http\UploadedFile;
 
-
-class CakesServiceImplement implements CakesService{
-
+class CakesServiceImplement implements CakesService
+{
     protected $cakesRepository;
 
     public function __construct(CakesRepository $cakesRepository)
@@ -23,33 +24,33 @@ class CakesServiceImplement implements CakesService{
         return $this->cakesRepository->find($id);
     }
 
-    public function createCake(array $data)
+    public function createCake(array $data, UploadedFile $image = null)
     {
-    return $this->cakesRepository->create($data);
+        if ($image) {
+            $data['image'] = $image->store('images', 'public');
+        }
+
+        return $this->cakesRepository->create($data);
     }
 
-public function updateCake($id, array $data)
-{
-    $cake = $this->cakesRepository->find($id);
+    public function updateCake($id, array $data, UploadedFile $image = null)
+    {
+        $cake = $this->cakesRepository->find($id);
 
-    if (isset($data['image']) && $data['image'] !== $cake->image) {
-        if ($cake->image) {
-            $oldImagePath = storage_path('app/public/' . $cake->image);
-            if (file_exists($oldImagePath)) {
-                unlink($oldImagePath);
+        if ($image) {
+            if ($cake->image) {
+                $oldImagePath = storage_path('app/public/' . $cake->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
+            $data['image'] = $image->store('images', 'public');
+        } else {
+            $data['image'] = $cake->image;
         }
 
-        if ($data['image'] instanceof \Illuminate\Http\UploadedFile) {
-            $data['image'] = $data['image']->store('images', 'public');
-        }
-    } else {
-        $data['image'] = $cake->image;
+        return $this->cakesRepository->update($id, $data);
     }
-
-    return $this->cakesRepository->update($id, $data);
-}
-
 
     public function deleteCake($id)
     {
@@ -62,7 +63,4 @@ public function updateCake($id, array $data)
         }
         return $this->cakesRepository->delete($id);
     }
-
 }
-
-?>

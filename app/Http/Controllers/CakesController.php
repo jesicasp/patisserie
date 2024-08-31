@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CakesRequest;
-use App\Models\Cakes;
 use App\Services\CakesService;
 
 class CakesController extends Controller
@@ -15,7 +14,6 @@ class CakesController extends Controller
         $this->cakesService = $cakesService;
     }
     
-
     public function index()
     {
         $cakes = $this->cakesService->getAllCakesPaginated(10);
@@ -28,19 +26,13 @@ class CakesController extends Controller
     }
 
     public function store(CakesRequest $request)
-{
-    $validatedData = $request->validated();
+    {
+        $validatedData = $request->validated();
 
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public');
-        $validatedData['image'] = $imagePath;
+        $this->cakesService->createCake($validatedData, $request->file('image'));
+
+        return redirect()->route('cakes.index')->with('success', 'Cake added successfully!');
     }
-
-    $this->cakesService->createCake($validatedData);
-
-    return redirect()->route('cakes.index')->with('success', 'Cake added successfully!');
-}
-
 
     public function edit($id)
     {
@@ -50,22 +42,9 @@ class CakesController extends Controller
 
     public function update(CakesRequest $request, $id)
     {
-        $cake = Cakes::findOrFail($id);
         $validatedData = $request->validated();
 
-        if ($request->hasFile('image')) {
-            if ($cake->image) {
-                $oldImagePath = storage_path('app/public/' . $cake->image);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-                $validatedData['image'] = $request->file('image')->store('images', 'public');
-            } else {
-            $validatedData['image'] = $cake->image;
-        }
-
-        $this->cakesService->updateCake($id, $validatedData);
+        $this->cakesService->updateCake($id, $validatedData, $request->file('image'));
 
         return redirect()->route('cakes.index')->with('success', 'Cake updated successfully!');
     }
