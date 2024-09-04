@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('cakes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('chef_id');
             $table->string('cake_name');
             $table->string('image')->nullable();            
             $table->decimal('price',8,2);
             $table->text('cake_description');
             $table->timestamps();
+
+            $table->foreign('chef_id')->references('id')->on('chefs')->onDelete('cascade');
         });
     }
  

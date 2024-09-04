@@ -17,6 +17,7 @@ class CakesServiceImplement implements CakesService
     public function getAllCakesPaginated($perPage = 10)
     {
         return $this->cakesRepository->getAllPaginated($perPage);
+        
     }
 
     public function findCake($id)

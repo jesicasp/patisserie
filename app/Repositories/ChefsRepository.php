@@ -2,21 +2,20 @@
 
 namespace App\Repositories;
 
-use App\Models\Cakes;
+use App\Models\Chefs;
 
-
-class CakesRepository
+class ChefsRepository
 {
     protected $model;
 
-    public function __construct(Cakes $model)
+    public function __construct(Chefs $model)
     {
         $this->model = $model;
     }
 
     public function getAllPaginated($perPage = 10)
     {
-        return $this->model->with('chef')->paginate($perPage);
+        return $this->model->paginate($perPage);
     }
 
     public function find($id)
@@ -31,15 +30,15 @@ class CakesRepository
 
     public function update($id, array $data)
     {
-        $cake = $this->find($id);
-        $cake->update($data);
-        return $cake;
+        $chef = $this->find($id);
+        $chef->update($data);
+        return $chef;
     }
 
     public function delete($id)
     {
-        $cake = $this->find($id);
-        $cake->delete();
-        return $cake;
+        $chef = $this->find($id);
+        $chef->delete();
+        return $chef;
     }
 }

@@ -3,22 +3,22 @@
 
     <body>
         <div class="py-2 mb-4">
-            <h1>Cakes</h1>
+            <h1>Chefs</h1>
             <!-- Breadcrumb -->
             <nav class="d-flex">
                 <h6 class="mb-0">
                     <a href="" class="text-reset">Beranda</a>
                     <span>/</span>
-                    <a href="" class="text-reset">Cakes</a>
+                    <a href="" class="text-reset">Chefs</a>
                     <span>/</span>
-                    <a href="" class="text-reset text-muted"><u>Edit Cakes</u></a>
+                    <a href="" class="text-reset text-muted"><u>Edit Chef</u></a>
                 </h6>
             </nav>
             <!-- Breadcrumb -->
         </div>
         <div class="row">
             <div class="col-md-8">
-                <form action="{{ route('cakes.update', $cake->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('chefs.update', $chef->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -35,67 +35,59 @@
                                 <div class="col-md-12">
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="name">Name
-                                            <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control @error('cake_name') is-invalid @enderror"
-                                            name="cake_name" value="{{ old('cake_name', $cake->cake_name) }}"
-                                            placeholder="Enter cake name">
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control @error('chef_name') is-invalid @enderror"
+                                            name="chef_name" value="{{ old('chef_name', $chef->chef_name) }}"
+                                            placeholder="Enter chef name">
+                                        @error('chef_name')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-
+                                    
                                     <div class="form-group mb-3">
-                                        <label class="form-label" for="chef_id">Chef</label>
-                                        <span class="text-danger">*</span></label>
-                                        <select id="chef_id" name="chef_id" class="form-control">
-                                            <option value="" disabled>Select or type to find a Chef</option>
-                                            @foreach ($chefs as $chef)
-                                                <option value="{{ $chef->id }}" {{ old('chef_id', $cake->chef_id) == $chef->id ? 'selected' : '' }}>
-                                                    {{ $chef->chef_name }}
-                                                </option>
-                                            @endforeach
+                                        <label class="form-label" for="specialty">Specialty
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select id="specialty" name="specialty" class="form-control @error('specialty') is-invalid @enderror">
+                                            <option value="" disabled>Select Specialty</option>
+                                            <option value="Pastry Chef"
+                                                {{ old('specialty', $chef->specialty) == 'Pastry Chef' ? 'selected' : '' }}>
+                                                Pastry Chef
+                                            </option>
+                                            <option value="Cake Decorator"
+                                                {{ old('specialty', $chef->specialty) == 'Cake Decorator' ? 'selected' : '' }}>
+                                                Cake Decorator
+                                            </option>
+                                            <option value="Chocolatier"
+                                                {{ old('specialty', $chef->specialty) == 'Chocolatier' ? 'selected' : '' }}>
+                                                Chocolatier
+                                            </option>
                                         </select>
-                                    
-                                        @error('chef_id')
+                                        @error('specialty')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                     
-
                                     <div class="form-group mb-3">
-                                        <label class="form-label" for="code">Image
-                                            <span class="text-danger">*</span></label>
-                                        <img id="file-preview" class="img-fluid col-sm-6 mb-3 d-block" height="100"
-                                            src="{{ old('image', $cake->image ? asset('storage/' . $cake->image) : '') }}"
-                                            alt="Image Preview">
-                                        <input type="file" id="image" class="form-control" name="image"
-                                            value="{{ old('image', $cake->image) }}">
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <label class="form-label" for="price">Price</label>
-                                        <input type="number" class="form-control @error('price') is-invalid @enderror"
-                                            name="price" value="{{ old('price', $cake->price) }}"
-                                            placeholder="Enter cake price">
-
-                                        @error('price')
+                                        <label class="form-label" for="experience">Experience
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" class="form-control @error('experience') is-invalid @enderror"
+                                            name="experience" value="{{ old('experience', $chef->experience) }}"
+                                            placeholder="Enter year">
+                                        @error('experience')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+                                    
 
-                                    <div class="form-group mb-3">
-                                        <label class="form-label" for="description">Description
-                                            <span class="text-danger">*</span></label>
-                                        <textarea class="form-control @error('cake_description') is-invalid @enderror" name="cake_description" rows="4"
-                                            placeholder="Add cake description">{{ old('cake_description', $cake->cake_description) }}</textarea>
-
-                                        @error('cake_description')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CakesRequest;
 use App\Services\CakesService;
+use App\Models\Chefs;
 
 class CakesController extends Controller
 {
@@ -22,7 +23,8 @@ class CakesController extends Controller
 
     public function create()
     {
-        return view('cakes.create');
+        $chefs = Chefs::all();
+        return view('cakes.create', compact('chefs'));
     }
 
     public function store(CakesRequest $request)
@@ -37,7 +39,8 @@ class CakesController extends Controller
     public function edit($id)
     {
         $cake = $this->cakesService->findCake($id);
-        return view('cakes.edit', compact('cake'));
+        $chefs = Chefs::all();
+        return view('cakes.edit', compact('cake','chefs'));
     }
 
     public function update(CakesRequest $request, $id)

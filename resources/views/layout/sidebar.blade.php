@@ -38,6 +38,18 @@
                 </li>
 
                 <div class="collapse show" id="collapseMenu3">
+                  <ul class="p-0 m-0">
+                      <li class="menu-item ripple">
+                          <a href="{{ route('chefs.index') }}" data-mdb-placement="right" data-mdb-toggle="tooltip"
+                              title="Chef" data-mdb-delay='{"show":"350", "hide":"0"}' class="sub-item">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span>Chef</span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+
+                <div class="collapse show" id="collapseMenu3">
                     <ul class="p-0 m-0">
                         <li class="menu-item ripple">
                             <a href="{{ route('cakes.index') }}" data-mdb-placement="right" data-mdb-toggle="tooltip"
@@ -48,5 +60,6 @@
                         </li>
                     </ul>
                 </div>
+
         </div>
     </nav>

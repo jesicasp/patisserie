@@ -12,7 +12,7 @@
                     <span>/</span>
                     <a href="" class="text-reset">Cakes</a>
                     <span>/</span>
-                    <a href="" class="text-reset text-muted"><u>Add Cakes</u></a>
+                    <a href="" class="text-reset text-muted"><u>Add Cake</u></a>
                 </h6>
             </nav>
             <!-- Breadcrumb -->
@@ -46,6 +46,23 @@
                                     </div>
 
                                     <div class="form-group mb-3">
+                                        <label class="form-label" for="chef_id">Chef</label>
+                                        <span class="text-danger">*</span></label>
+                                        <select id="chef_id" name="chef_id" class="form-control">
+                                            <option value="" disabled selected>Select or type to find a Chef</option>
+                                            @foreach ($chefs as $chef)
+                                                <option value="{{ $chef->id }}">{{ $chef->chef_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                        @error('chef_id')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-3">
                                         <label class="form-label" for="code">Image
                                             <span class="text-danger">*</span></label>
                                         <img id="file-preview" class="img-fluid col-sm-6 mb-3 d-block" height="100">
@@ -62,6 +79,7 @@
 
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="degree">Price</label>
+                                        <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control @error('price') is-invalid @enderror"
                                             name="price" value="{{ old('price') }}" placeholder="Enter cake price">
 
@@ -114,5 +132,7 @@
             }
             input.addEventListener("change", previewPhoto);
         </script>
+
+        
     </body>
 @endsection
