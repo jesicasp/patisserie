@@ -61,5 +61,30 @@
                     </ul>
                 </div>
 
+                <div class="collapse show" id="collapseMenu3">
+                  <ul class="p-0 m-0">
+                      <li class="menu-item ripple">
+                          <a href="{{ route('varians.index') }}" data-mdb-placement="right" data-mdb-toggle="tooltip"
+                              title="Varians" data-mdb-delay='{"show":"350", "hide":"0"}' class="sub-item">
+                              <i class="fa fa-adjust" aria-hidden="true"></i>
+                              <span>Varians</span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+
+              <div class="collapse show" id="collapseMenu3">
+                <ul class="p-0 m-0">
+                    <li class="menu-item ripple">
+                        <a href="{{ route('cake-varian.index') }}" data-mdb-placement="right" data-mdb-toggle="tooltip"
+                            title="Varians" data-mdb-delay='{"show":"350", "hide":"0"}' class="sub-item">
+                            <i class="fa fa-dot-circle" aria-hidden="true"></i>
+                            <span>Cake Varian</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
         </div>
     </nav>

@@ -23,4 +23,9 @@ class Cakes extends Model
     {
         return $this->belongsTo(Chefs::class);
     }
+
+    public function varians()
+    {
+        return $this->belongsToMany(Varian::class, 'cake_varian');
+    }
 }

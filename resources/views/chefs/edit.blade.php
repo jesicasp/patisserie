@@ -101,20 +101,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-        <script>
-            const input = document.getElementById('image');
-            const previewPhoto = () => {
-                const file = input.files;
-                if (file) {
-                    const fileReader = new FileReader();
-                    const preview = document.getElementById('file-preview');
-                    fileReader.onload = function(event) {
-                        preview.setAttribute('src', event.target.result);
-                    }
-                    fileReader.readAsDataURL(file[0]);
-                }
-            }
-            input.addEventListener("change", previewPhoto);
-        </script>
+        
     </body>
 @endsection

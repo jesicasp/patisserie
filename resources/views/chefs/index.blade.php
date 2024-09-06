@@ -20,6 +20,11 @@
                         <a href="{{ route('chefs.create') }}" class="btn btn-primary">Add</a>
                     </div>
                     <div class="card-body">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">{{ $message }}</div>
+                        @endif
+                    </div>
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table id="datatable-server" class="table table-hover table-striped nowrap" style="width: 100%">
                                 <thead>

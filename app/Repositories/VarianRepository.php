@@ -2,21 +2,21 @@
 
 namespace App\Repositories;
 
-use App\Models\Cakes;
+use App\Models\Varian;
 
 
-class CakesRepository
+class VarianRepository
 {
     protected $model;
 
-    public function __construct(Cakes $model)
+    public function __construct(Varian $model)
     {
         $this->model = $model;
     }
 
     public function getAllPaginated($perPage = 10)
     {
-        return $this->model->with('chef')->paginate($perPage);
+        return $this->model->paginate($perPage);
     }
 
     public function find($id)
@@ -31,17 +31,15 @@ class CakesRepository
 
     public function update($id, array $data)
     {
-        $cake = $this->find($id);
-        $cake->update($data);
-        return $cake;
+        $varian = $this->find($id);
+        $varian->update($data);
+        return $varian;
     }
 
     public function delete($id)
     {
-        $cake = $this->find($id);
-        $cake->delete();
-        return $cake;
+        $varian = $this->find($id);
+        $varian->delete();
+        return $varian;
     }
-
-    
 }

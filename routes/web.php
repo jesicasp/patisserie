@@ -21,3 +21,9 @@ Route::resource('/cakes', \App\Http\Controllers\CakesController::class);
 
 Route::resource('/chefs', \App\Http\Controllers\ChefsController::class);
 
+Route::resource('/varians', \App\Http\Controllers\VarianController::class);
+
+Route::resource('/cake-varian', \App\Http\Controllers\CakeVarianController::class);
+
+
+
