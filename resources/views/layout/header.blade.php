@@ -87,7 +87,8 @@
                                 <hr class="dropdown-divider my-0" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="https://inovindoacademy.com/logout">
+                                <a class="dropdown-item" href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fas fa-power-off fa-fw me-2"></i>
                                     <span>Keluar</span>
                                 </a>
@@ -97,6 +98,11 @@
                 </ul>
             </div>
         </div>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->

@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CakesController;
+use App\Http\Controllers\ChefsController;
+use App\Http\Controllers\VarianController;
+use App\Http\Controllers\CakeVarianController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +25,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/cakes', \App\Http\Controllers\CakesController::class);
+Route::resource('/cakes', CakesController::class)->middleware('auth');
 
-Route::resource('/chefs', \App\Http\Controllers\ChefsController::class);
+Route::resource('/chefs', ChefsController::class)->middleware('auth');;
 
-Route::resource('/varians', \App\Http\Controllers\VarianController::class);
+Route::resource('/varians', VarianController::class)->middleware('auth');;
 
-Route::resource('/cake-varian', \App\Http\Controllers\CakeVarianController::class);
+Route::resource('/cake-varian', CakeVarianController::class)->middleware('auth');;
 
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
